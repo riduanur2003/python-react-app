@@ -26,7 +26,7 @@ class TransactionBase(BaseModel):
     is_income: bool
     date: str
 
-class TranscatoinModel(TransactionBase):
+class TransactoinModel(TransactionBase):
     id: int
 
     class Config:
@@ -46,7 +46,7 @@ db_dependancy = Annotated[Session, Depends(get_db)]
 
 models.Base.metadata.create_all(bind=engine)
 
-@app.post("/transactions/", response_model = TranscatoinModel)
+@app.post("/transactions/", response_model = TransactoinModel)
 async def create_transaction(transaction: TransactionBase, db: db_dependancy):
     db_transaction = models.Transaction(**transaction.dict())
     db.add(db_transaction)
@@ -55,7 +55,7 @@ async def create_transaction(transaction: TransactionBase, db: db_dependancy):
     return db_transaction
 
 
-@app.get("/transactions", response_model = list [TranscatoinModel])
+@app.get("/transactions", response_model = list [TransactoinModel])
 async def read_transactions(db: db_dependancy, skip: int = 0, limit: int = 1000):
     transactions = db.query(models.Transaction).offset(skip).limit(limit).all()
     return transactions
