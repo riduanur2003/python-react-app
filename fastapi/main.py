@@ -1,3 +1,4 @@
+
 from fastapi import FastAPI, HTTPException, Depends
 from typing import Annotated
 from sqlalchemy.orm import Session
@@ -52,3 +53,9 @@ async def create_transaction(transaction: TransactionBase, db: db_dependancy):
     db.commit()
     db.refresh(db_transaction)
     return db_transaction
+
+
+@app.get("/transactions", response_model = list [TranscatoinModel])
+async def read_transactions(db: db_dependancy, skip: int = 0, limit: int = 1000):
+    transactions = db.query(models.Transaction).offset(skip).limit(limit).all()
+    return transactions
