@@ -26,6 +26,9 @@ class TransactionBase(BaseModel):
     is_income: bool
     date: str
 
+
+# add unique id with each transaction 
+
 class TransactoinModel(TransactionBase):
     id: int
 
