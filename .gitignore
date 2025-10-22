@@ -1,1 +1,3 @@
 .venv
+React/node_modules/
+fastapi/__pycache__/
